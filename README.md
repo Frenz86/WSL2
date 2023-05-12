@@ -1,1 +1,298 @@
 # WSL2
+
+####### WIN11 #########
+powershell admin : wsl --install
+
+#riavvia windows
+
+wsl --set-default-version 2
+wsl -l -v
+
+##installare ubuntu 20.04.4 LTS
+
+sudo apt-get update \
+&& sudo apt-get install -y software-properties-common curl \
+&& sudo add-apt-repository ppa:deadsnakes/ppa \
+&& sudo apt-get update \
+&& sudo apt-get install -y python3.8-venv python3.8-dev \
+&& sudo apt install python3-pip \
+&& sudo apt-get install python3-venv \
+&& sudo -H pip3 install virtualenvwrapper
+
+mkdir .virtualenv
+
+nano .bashrc
+xxxxx
+#write:
+alias python=python3
+alias pip=pip3
+#Virtualenvwrapper settings:
+export WORKON_HOME=$HOME/.virtualenvs
+VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+. /usr/local/bin/virtualenvwrapper.sh
+
+ctrls+ctrlx
+#####
+source .bashrc
+
+###SIMBOLIC LINK
+(once in a life!!!!!!)
+#ognuno metterà il proprio percorso con lo user specifico
+ln -s /mnt/c/Users/Danie/Google\ Drive/repos/
+ln -s /mnt/c/Users/visio/Il\ mio\ Drive/repos/
+ln -s /mnt/c/Users/danie/My\ Drive/repos/
+ln -s /mnt/c/Users/frenz/My\ Drive/repos/
+ln -s /mnt/c/Users/danie/Documents/
+
+ln -s /mnt/c/Users/danie/My\ Drive/Colab\ Notebooks/_Dani/_infomanager/clienti/Bi_For/_Lavoro/test03bifor/
+
+
+########### without virtual wrapper
+## andare nella cartella source env1/bin/activate
+
+mkvirtualenv env1
+deactivate
+mkvirtualenv env2
+
+workon
+lsvirtualenv
+
+### To activate one specific environment use workon + name of your environment:
+workon env1
+
+###########################arrivo fino a qui
+# add Docker key and repo
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
+&& sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+&& sudo apt-get install -y docker-ce containerd.io \
+&& sudo groupadd docker \
+&& sudo usermod -aG docker $USER \
+&& newgrp docker \
+&& sudo service docker start
+
+#sudo groupadd docker
+#sudo usermod -aG docker $USER
+#newgrp docker
+
+#close terminal and reopen !!!!!!!!!!!!!!!!!
+sudo service docker restart
+
+
+docker run hello-world
+
+###à
+docker container ls -a
+docker ps
+
+sudo service docker stop
+
+##################################################
+##ogni riavvio di windows
+sudo service docker start
+##################################################
+
+
+
+##### UBUNTU 22.04
+
+
+sudo update-alternatives --config iptables
+Enter 1 to select iptables-legacy
+sudo service docker start
+
+sudo chmod 777 /var/run/docker.sock
+
+#àGot permission denied while trying to connect to the Docker daemo:
+
+echo "export DOCKER_HOST=tcp://localhost:2375" >> ~/.bashrc && source ~/.bashrc
+
+#firefox
+https://askubuntu.com/questions/1399383/how-to-install-firefox-as-a-traditional-deb-package-without-snap-in-ubuntu-22
+
+
+
+
+####### GUI FIREFOX ##########################
+
+Powershell:
+wsl --update
+wsl --shutdown
+wsl --list --verbose
+
+in WSL2:
+sudo apt update
+sudo apt install gedit -y
+export DISPLAY=:0
+export LIBGL_ALWAYS_INDIRECT=0
+
+
+###############################################
+
+
+
+
+
+###################portainer ############
+docker volume create portainer_data 
+docker run -d -p 8008:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
+##localhost:9000
+
+
+##docker compose ############
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+# install geforce driver on windows11
+## https://developer.nvidia.com/cuda/wsl/download
+ 
+#################### NVIDIA DOCKER 2 - Ubuntu 20.04 wsl ####################
+# Nvidia Docker2
+sudo apt install curl
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+sudo service docker restart
+
+# test1
+docker run --gpus all -it --name=testgpu nvidia/cuda:11.7.0-base-rockylinux8 bash
+nvidia-smi
+
+
+#test2
+sudo docker run -it --gpus all --name testcuda nvidia/cuda:11.2.2-devel-ubuntu20.04 bash
+#test3
+docker run --gpus all -it nvcr.io/nvidia/pytorch:21.02-py3
+
+####################### heimdall #######################
+docker volume create heimdall_data
+docker run -d \
+  --name=heimdall \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/Rome \
+  -p 9999:80 \
+  -v heimdall_data:/config \
+  --restart always \
+  ghcr.io/linuxserver/heimdall:latest
+
+####################### luigi #######################
+docker build -t luigi .
+
+docker volume create Luigi
+docker run -d -it\
+  --name=luigi \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/Rome \
+  -p 8082:8082 \
+  -v luigi_data \
+  --restart always \
+  luigi:latest
+
+######################## kestra ##########################
+touch docker-compose.yml
+nano docker-compose.yml
+ctrls+ctrlx
+#####
+
+version: "3.6"
+
+volumes:
+  zookeeper-data:
+    driver: local
+  zookeeper-log:
+    driver: local
+  kafka-data:
+    driver: local
+  elasticsearch-data:
+    driver: local
+  kestra-data:
+    driver: local
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.0.1
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-log:/var/lib/zookeeper/log
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_LOG4J_ROOT_LOGLEVEL: WARN
+      ZOOKEEPER_TOOLS_LOG4J_LOGLEVEL: WARN
+
+  kafka:
+    image: confluentinc/cp-kafka:7.0.1
+    volumes:
+      - kafka-data:/var/lib/kafka
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: 'false'
+      KAFKA_LOG4J_LOGGERS: "kafka=WARN,kafka.producer.async.DefaultEventHandler=WARN,kafka.controller=WARN,state.change.logger=WARN"
+      KAFKA_LOG4J_ROOT_LOGLEVEL: WARN
+      KAFKA_TOOLS_LOG4J_LOGLEVEL: WARN
+    links:
+      - zookeeper
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.2
+    environment:
+      discovery.type: single-node
+      cluster.routing.allocation.disk.threshold_enabled: "false"
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: "-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+
+  kestra:
+    image: kestra/kestra:develop-full
+    command: server standalone
+    volumes:
+      - kestra-data:/app/storage
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/kestra:/tmp/kestra
+    environment:
+      KESTRA_CONFIGURATION: |
+        kestra:
+          kafka:
+            client:
+              properties:
+                bootstrap.servers: kafka:9092
+          elasticsearch:
+            client:
+              http-hosts: http://elasticsearch:9200
+          repository:
+            type: elasticsearch
+          storage:
+            type: local
+            local:
+              base-path: "/app/storage"
+          queue:
+            type: kafka
+          tasks:
+            tmp-dir:
+              path: /tmp/kestra/tmp
+          url: http://localhost:8080/
+    ports:
+      - "8080:8080"
+    links:
+      - kafka
+      - zookeeper
+
+#########
+docker-compose up -d
+
+###################################################
