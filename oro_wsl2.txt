@@ -6,6 +6,13 @@ powershell admin : wsl --install
 wsl --set-default-version 2
 wsl -l -v
 
+##### UBUNTU 22.04
+sudo update-alternatives --config iptables
+
+Enter 1 to select iptables-legacy
+
+## poi installi tutto come 20.04
+
 ##installare ubuntu 20.04.4 LTS
 
 sudo apt-get update \
@@ -69,7 +76,6 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
 && newgrp docker \
 && sudo service docker start
 
-#sudo groupadd docker
 #sudo usermod -aG docker $USER
 #newgrp docker
 
@@ -92,18 +98,8 @@ sudo service docker start
 
 
 
-##### UBUNTU 22.04
 
 
-sudo update-alternatives --config iptables
-Enter 1 to select iptables-legacy
-sudo service docker start
-
-sudo chmod 777 /var/run/docker.sock
-
-#àGot permission denied while trying to connect to the Docker daemo:
-
-echo "export DOCKER_HOST=tcp://localhost:2375" >> ~/.bashrc && source ~/.bashrc
 
 #firefox
 https://askubuntu.com/questions/1399383/how-to-install-firefox-as-a-traditional-deb-package-without-snap-in-ubuntu-22
@@ -133,7 +129,8 @@ export LIBGL_ALWAYS_INDIRECT=0
 
 ###################portainer ############
 docker volume create portainer_data 
-docker run -d -p 8008:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
+docker run -d -p 8008:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+
 ##localhost:9000
 
 
