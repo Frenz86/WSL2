@@ -1,4 +1,4 @@
-####### WIN11 #########
+####### WIN11 ##########
 powershell admin : wsl --install
 
 #riavvia windows
