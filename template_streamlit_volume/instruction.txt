@@ -1,3 +1,8 @@
+### portainer ####
+andare in Enviroments basso sinistra, cliccare local,Public IP mettere localhost
+
+######################################################
+
 docker build -t testtest -f Dockerfile .
 docker run -it\
     -p 8501:8501\
@@ -11,5 +16,5 @@ docker exec -it IDIDIDIDIIDI bash
 dentro ad app/data/ è montato il contenuto della cartella dischi
 
 ################################################################
-docker-compose up -d 
+docker-compose  -p test-stream up -d 
 
