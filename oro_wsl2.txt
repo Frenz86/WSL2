@@ -105,16 +105,9 @@ sudo service docker stop
 sudo service docker start
 ##################################################
 
-
-
-
-
-
 #firefox
-https://askubuntu.com/questions/1399383/how-to-install-firefox-as-a-traditional-deb-package-without-snap-in-ubuntu-22
-
-
-
+sudo apt-get install firefox
+firefox
 
 ####### GUI FIREFOX ##########################
 
