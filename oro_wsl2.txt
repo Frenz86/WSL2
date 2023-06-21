@@ -130,8 +130,10 @@ export DISPLAY=:0
 export LIBGL_ALWAYS_INDIRECT=0
 
 
-###############################################
-
+########### VSCODE ###########################
+https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl
+## install python + jup ext
+## install docker ext
 
 
 
