@@ -1,12 +1,19 @@
-####### WIN11 ##########
 powershell admin : wsl --install
-
-#riavvia windows
-
+wsl --setdefault Ubuntu-22.04
 wsl --set-default-version 2
-wsl -l -v
+wsl --exec dbus-launch true
 
-##### UBUNTU 22.04
+wsl -l -v
+# go to:
+
+C:\Users\frenz\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+
+#### wsl2startup.cmd #####
+@echo off
+wsl --exec dbus-launch true
+#save
+
+##### UBUNTU 22.04 #################################
 sudo update-alternatives --config iptables
 
 Enter 1 to select iptables-legacy
