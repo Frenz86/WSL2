@@ -83,9 +83,8 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
 && newgrp docker \
 && sudo service docker start
 
-#sudo usermod -aG docker $USER
-#newgrp docker
-
+sudo usermod -aG docker $USER
+## mi raccomando chiudi e riapri terminale!!!!!!!!!!!!!!
 #close terminal and reopen !!!!!!!!!!!!!!!!!
 sudo service docker restart
 
