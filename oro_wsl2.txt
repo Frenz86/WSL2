@@ -12,10 +12,11 @@ sudo pip3 install nvidia-cudnn-cu11==8.5.0.96
 sudo pip3 install tensorflow==2.11.0
 sudo apt install nvidia-cudnn
 python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+pip install --upgrade tensorflow==2.8
+####### works!! [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')] ####
 
 
-
-powershell admin :
+powershell admin : 
 wsl --list --online
 wsl --install -d Ubuntu-22.04
 wsl --setdefault Ubuntu-22.04
