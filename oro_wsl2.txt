@@ -144,7 +144,25 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 # install geforce driver on windows11
 ## https://developer.nvidia.com/cuda/wsl/download
- 
+
+
+########## RECUPERARE SPAZIO WSL DOCKER -- WSL NON SI AUTO RIDIMENSIONA ########################################
+
+wsl --shutdown
+diskpart
+# open Diskpart in new window
+select vdisk file="C:\Users\danie\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc\LocalState\ext4.vhdx"
+attach vdisk readonly
+compact vdisk
+detach vdisk
+exit
+
+######################################################
+
+
+
+
+
 #################### NVIDIA DOCKER 2 - Ubuntu 20.04 wsl ####################
 # Nvidia Docker2
 sudo apt install curl
