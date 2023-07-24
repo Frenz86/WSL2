@@ -29,3 +29,7 @@ python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'
 ## error
  I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:922] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
 Your kernel may have been built without NUMA support.
+
+###########################
+## rif https://www.sobyte.net/post/2022-04/windows-wls2-ubuntu-cuda-cudnn-tensorflow-pytorch/
+##########################
