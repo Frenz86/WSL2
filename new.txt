@@ -20,11 +20,15 @@ pip3 --version
 sudo pip3 install nvidia-cudnn-cu11==8.5.0.96
 sudo pip3 install tensorflow==2.11.0
 sudo apt-get -y install nvidia-cudnn
+
+##make virtualenvs
+mkvirtualenv env1
+
 pip3 install --upgrade tensorflow==2.8
 pip3 install protobuf==3.20.*
 pip3 install virtualenv
 
-
+#deactivate
 ###################################
 
 python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
