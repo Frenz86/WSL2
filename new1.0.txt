@@ -1,0 +1,58 @@
+##################################
+
+sudo apt update
+sudo apt-get -y upgrade
+nvcc --version
+sudo apt-get -y install nvidia-cuda-toolkit
+sudo apt-get -y install python3-dev python3-pip
+sudo apt-get -y install python3-pip
+sudo apt-get -y install python3-venv
+sudo -H pip3 install virtualenvwrapper
+nvcc --version
+nvidia-smi
+
+## installazione grafica
+sudo apt-get -y install nvidia-cudnn
+
+################################
+
+
+mkdir .virtualenv
+
+nano .bashrc
+xxxxx
+#write:
+alias python=python3
+alias pip=pip3
+#Virtualenvwrapper settings:
+export WORKON_HOME=$HOME/.virtualenvs
+VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+. /usr/local/bin/virtualenvwrapper.sh
+
+ctrls+ctrlx
+#####
+source .bashrc
+
+###SIMBOLIC LINK
+(once in a life!!!!!!)
+#ognuno metterà il proprio percorso con lo user specifico
+ln -s /mnt/c/Users/frenz/OneDrive/Desktop/repos/
+
+##make virtualenv
+mkvirtualenv env1
+
+pip3 --version
+pip3 install --upgrade pip
+pip3 install nvidia-cudnn-cu11==8.5.0.96
+pip3 install tensorflow==2.8
+pip3 install protobuf==3.20.*
+
+python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+
+#deactivate
+#lsvirtualenv
+#workon env1
+
+###
+REBOOT SYSTEM
+###
