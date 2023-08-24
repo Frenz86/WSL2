@@ -9,6 +9,12 @@ wsl -l -v
 ################## delete wsl
 wsl --unregister Ubuntu-22.04
 
+##################shrink wsl2
+wsl --shutdown
+diskpart
+
+select vdisk file=<right click to paste complete path to ext4.vhdx>
+compact vdisk
 ##################################
 
 sudo apt update
