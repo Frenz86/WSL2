@@ -5,6 +5,10 @@ powershell admin : wsl --install
 
 wsl --set-default-version 2
 wsl -l -v
+
+################## delete wsl
+wsl --unregister Ubuntu-22.04
+
 ##################################
 
 sudo apt update
