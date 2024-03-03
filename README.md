@@ -8,7 +8,7 @@ powershell admin : wsl --install
 wsl --set-default-version 2
 wsl -l -v
 
-wsl --distribution Ubuntu-22.04 --exec dbus-launch true & wsl --distribution Ubuntu-22.04 --cd ~
+wsl --distribution Ubuntu-22.04 --exec dbus-launch true "&" wsl --distribution Ubuntu-22.04 --cd ~
 ##################################
 
 sudo apt update
