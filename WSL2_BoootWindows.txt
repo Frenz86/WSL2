@@ -1,0 +1,5 @@
+https://frenzy86.s3.eu-west-2.amazonaws.com/WSL2/wsl2running.bat
+
+## put inside this folder:
+
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup
