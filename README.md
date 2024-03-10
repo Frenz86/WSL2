@@ -1,7 +1,7 @@
 # WSL2
 
 ####### WIN11 #########
-powershell admin : wsl --install
+powershell admin : wsl --install Ubuntu-22.04
 
 #riavvia windows
 
