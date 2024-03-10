@@ -3,11 +3,10 @@
 ####### WIN11 #########
 powershell admin : 
 wsl --install
+#reboot windows
+wsl --unregister Ubuntu
 
 wsl --install Ubuntu-22.04
-
-#riavvia windows
-
 wsl --set-default-version 2
 wsl -l -v
 
